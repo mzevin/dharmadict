@@ -1,0 +1,45 @@
+<div ng-controller="homeController">
+	<div class="row">
+		<div class="col-md-12 text-right">
+			  <a href="" ng-click="toggleAbout()">О проекте</a>
+		</div>
+	</div>
+
+	<div class="row search-row">
+		<div class="col-md-6 col-md-offset-3">
+			<form>
+				<div class="form-group form-group-search">
+					<input class="form-control" type="search" placeholder="Search"
+					       ng-model="searchPattern"
+					       ng-change="search()"
+					       ng-model-options="{ debounce: {'default': 200, 'blur': 0} }">
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="row about-row" ng-show="showAboutInfo">
+		<div ng-include="'views/about.html'"></div>
+	</div>
+
+	<div class="row search-results-row" ng-hide="showAboutInfo">
+		<div class="col-md-2">
+			<div class="list-group scroll-terms-list">
+			  <a href="" class="list-group-item" ng-repeat="t in terms" ng-click="showTerm(t.id)">{{t.name}}</a>
+			</div>
+		</div>
+		<div class="col-md-10">
+			<div class="term">
+				<h1>{{currentTerm.name}}</h1>
+				<div class="term-description">{{currentTerm.description}}</div>
+				<ul>
+				  <li class="translation" ng-repeat="t in currentTerm.translations">
+						<h3>{{t.name}}</h3>
+						<div class="translation-description">{{t.description}}</div>
+						<a href="" class="translator-ref">{{t.translator}}</a>
+					</li>
+				</ul>
+
+			</div>
+		</div>
+</div>

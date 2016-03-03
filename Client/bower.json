@@ -1,0 +1,12 @@
+{
+  "name": "WebApiTemplate",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular": "1.3.14",
+    "angular-resource": "1.3.14",
+    "angular-route": "1.3.14",
+    "angular-bootstrap": "0.14.3",
+    "bootstrap": "3.0.0",
+    "jquery": "1.10.2"
+  }
+}
