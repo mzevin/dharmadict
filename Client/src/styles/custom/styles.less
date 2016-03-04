@@ -1,7 +1,6 @@
 //@import "variables.less";
-//@import "mixins.less";
+@import "mixins.less";
 
-/*globals*/
 body {
   padding-top: 20px;
 }
@@ -9,10 +8,13 @@ body {
 .container {
 }
 
-/*!globals*/
-
 .search-row {
   margin-bottom: 20px;
+}
+
+.scroll-terms-list {
+  max-height: calc(~"100vh - 100px");
+  overflow: auto;
 }
 
 .term {
@@ -23,9 +25,36 @@ body {
       font-weight: bold;
       color: black;
   }
+  h3 {
+      margin-top: 0px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      color: black;
+  }
+  ul {
+    list-style-type: none;
+  }
+
+  .wrap-wikilink {
+    text-align: center;
+    font-size: 10px;
+  }
 }
 
-.scroll-terms-list {
-  max-height: calc(~"100vh - 100px");
-  overflow: auto;
+.translations-list {
+  padding-left: 0px;
+
+  .translation {
+    border: 1px hsl(0,0%,75%) solid;
+    border-radius: 8px;
+    padding: 10px 20px 20px 20px;
+    margin-top: 15px;
+
+    .wrap-translator-ref {
+      text-align: right;
+      font-size: 12px;
+      padding-bottom: 5px;
+    }
+  }
 }

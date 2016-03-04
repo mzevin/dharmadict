@@ -6,7 +6,7 @@ angular.module('app')
 			$scope.showAboutInfo = false;
 			$scope.searchPattern = ""
 			$scope.terms = []
-			$scope.currentTerm = {}
+			$scope.currentTerm = null
 
 			$scope.search = () ->
 				termsService.search	(res) ->
