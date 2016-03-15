@@ -67,9 +67,9 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="StructureMap, Version=2.6.4.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -121,8 +121,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Term.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup\DictionaryRepositoryRegistry.cs" />
     <Compile Include="Startup\JsonSerializationConfiguration.cs" />
     <Compile Include="Startup\LoggingRegistry.cs" />
     <Compile Include="Startup\StructureMapDependencyResolver.cs" />
@@ -148,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -159,6 +160,14 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{47349da3-8441-48bb-8516-63a05dc2d70f}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DomainModel\DomainModel.csproj">
+      <Project>{34F1CCE5-B9B8-41DC-9E55-B0DF46B869F1}</Project>
+      <Name>DomainModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ElasticSearchRepository\ElasticSearchRepository.csproj">
+      <Project>{3149818b-3efb-4f7c-9494-c2765a102868}</Project>
+      <Name>ElasticSearchRepository</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
