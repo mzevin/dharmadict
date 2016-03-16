@@ -42,10 +42,10 @@
 				    <div class="wrap-translator-ref">
 				      <a href="" class="translator-ref">{{t.translator}}</a>
 				    </div>
-				    <div class="translation-description">{{t.comment}}</div>
+				    <div class="translation-comment" ng-show="t.comment">Комментарий переводчика: {{t.comment}}</div>
 				    <ol ng-class="{'single-item': t.meanings.length==1}">
 				      <li class="meaning" ng-repeat="m in t.meanings">
-				        <span ng-repeat="v in m.versions">{{v.rus}} {{$last ? '' : ($index==v.length-2) ? ' and ' : ', '}}</span>
+				        <span ng-repeat="v in m.versions">{{v.rus}}{{$last ? '' : ($index==v.length-2) ? ' and ' : ', '}}</span>
 				      </li>
 				    </ol>
 				  </li>
@@ -66,10 +66,10 @@
 						    <div class="wrap-translator-ref">
 						      <a href="" class="translator-ref">{{t.translator}}</a>
 						    </div>
-						    <div class="translation-description">{{t.comment}}</div>
+						    <div class="translation-comment" ng-show="t.comment">Комментарий переводчика: {{t.comment}}</div>
 						    <ol ng-class="{'single-item': t.meanings.length==1}">
 						      <li class="meaning" ng-repeat="m in t.meanings">
-						        <span ng-repeat="v in m.versions">{{v.rus}} {{$last ? '' : ($index==v.length-2) ? ' and ' : ', '}}</span>
+						        <span ng-repeat="v in m.versions">{{v.rus}}{{$last ? '' : ($index==v.length-2) ? ' and ' : ', '}}</span>
 						      </li>
 						    </ol>
 						  </li>
