@@ -1,0 +1,18 @@
+<h1>{{currentTerm.wylie}}</h1>
+<h3>Санскрит: {{currentTerm.sanskrit}}</h3>
+<div class="wrap-wikilink">
+  <a href="{{currentTerm.wikipedia}}" class="wikilink">wiki</a>
+</div>
+<ul class="translations-list">
+  <li class="translation" ng-repeat="t in currentTerm.translations">
+    <div class="wrap-translator-ref">
+      <a href="" class="translator-ref">{{t.translator}}</a>
+    </div>
+    <div class="translation-description">{{t.comment}}</div>
+    <ol>
+      <li class="" ng-repeat="m in t.meanings">
+        <span ng-repeat="v in m.versions">{{v.rus}} {{$last ? '' : ($index==v.length-2) ? ' and ' : ', '}}</span>
+      </li>
+    </ol>
+  </li>
+</ul>
