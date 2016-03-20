@@ -1,0 +1,90 @@
+DELETE /dharmadict
+
+###
+GET _search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+###
+GET /dharmadict/terms/_search
+{
+  "fields": ["wylie"]
+}
+
+###
+GET _cat/indices
+
+###
+GET /dharmadict/terms/_search
+{
+    "query" : {
+        "bool": {
+          "should": [
+            {
+              "match" : {
+                "wylie" : "Учение"
+              }
+            },
+            {
+              "match" : {
+                "translations.meanings.versions.rus" : "Учение"
+              }
+            }
+          ]
+        }
+    }
+}
+
+###
+POST /dharmadict/terms
+{
+  "wylie": "sku gsum",
+  "sanskrit": "три кая",
+  "wikipedia": "http://wikipedia.org/x/",
+  "translations": [
+    {
+      "translator": "Маргарита Кожевникова",
+      "comment": "Три уровня проявления Пробужденного",
+      "meanings": [
+        {
+          "versions": [{"rus": "три Тела Будды"}]
+        }
+      ]
+    }
+  ],
+  "subTerms": [
+    {
+      "wylie": "chos (kyi) sku",
+      "sanskrit": "Дхармакая",
+      "translations": [
+        {
+          "translator": "Маргарита Кожевникова",
+          "meanings": [{"versions": [{"rus": "Тело учения"}]}]
+        }
+      ]
+    },
+    {
+      "wylie": "longs sku",
+      "sanskrit": "Самбхогакая",
+      "translations": [
+        {
+          "translator": "Маргарита Кожевникова",
+          "meanings": [{"versions": [{"rus": "Тело блаженства"}]}]
+        }
+      ]
+    },
+    {
+      "wylie": "sprul (pa'i) sku",
+      "sanskrit": "Нирманакая",
+      "translations": [
+        {
+          "translator": "Маргарита Кожевникова",
+          "meanings": [{"versions": [{"rus": "Тело воплощения"}]}]
+        }
+      ]
+    }
+  ]
+}
