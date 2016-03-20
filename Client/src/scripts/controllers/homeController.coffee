@@ -9,8 +9,6 @@ angular.module('app')
 			$scope.currentTerm = null
 
 			$scope.search = () ->
-				#termsService.search	(res) ->
-				#	$scope.terms = res
 				$scope.showAboutInfo = false
 				elasticService.search(
 					index: "dharmadict"
@@ -26,8 +24,8 @@ angular.module('app')
 					(err) ->
 						console.trace(err.message)
 				)
-			$scope.showTerm = (id) ->
-				$scope.currentTerm =  (t for t in $scope.terms when t.id == id)[0]
+			$scope.showTerm = (idx) ->
+				$scope.currentTerm =  $scope.terms[idx]
 
 			$scope.toggleAbout = () ->
 				$scope.showAboutInfo = not $scope.showAboutInfo

@@ -25,7 +25,7 @@
 	<div class="row search-results-row" ng-hide="showAboutInfo">
 		<div class="col-md-2">
 			<div class="list-group scroll-terms-list">
-			  <a href="" class="list-group-item" ng-repeat="t in terms" ng-click="showTerm(t.id)">{{t.wylie}}</a>
+			  <a href="" class="list-group-item" ng-repeat="t in terms" ng-click="showTerm($index)">{{t.wylie}}</a>
 			</div>
 		</div>
 
