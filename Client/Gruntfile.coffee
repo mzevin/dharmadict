@@ -87,6 +87,7 @@ module.exports = (grunt) ->
 					"vendors/angular-resource/angular-resource.js"
 					"vendors/angular-route/angular-route.js"
 					"vendors/angular-ui-scroll/dist/ui-scroll.js"
+					"vendors/elasticsearch/elasticsearch.angular.js"
 					"vendors/**/ui-bootstrap-tpls.js"
 					"vendors/**/module/*.js"
 					"vendors/**/scripts/*.js"
