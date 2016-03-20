@@ -20,15 +20,27 @@ angular.module('app')
 								should: [
 									{
 										match:
-											wylie: $scope.searchPattern
+											"wylie": $scope.searchPattern
 									},
 									{
 										match:
-											sanskrit: $scope.searchPattern
+											"sanskrit": $scope.searchPattern
 									},
 									{
 										match:
 											"translations.meanings.versions.rus": $scope.searchPattern
+									},
+									{
+										match:
+											"subTerms.wylie": $scope.searchPattern
+									},
+									{
+										match:
+											"subTerms.sanskrit": $scope.searchPattern
+									},
+									{
+										match:
+											"subTerms.translations.meanings.versions.rus": $scope.searchPattern
 									}
 									]
 				).then(
@@ -38,6 +50,7 @@ angular.module('app')
 					(err) ->
 						console.trace(err.message)
 				)
+
 			$scope.showTerm = (idx) ->
 				$scope.currentTerm =  $scope.terms[idx]
 
