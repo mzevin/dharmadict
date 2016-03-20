@@ -10,13 +10,27 @@ angular.module('app')
 
 			$scope.search = () ->
 				$scope.showAboutInfo = false
+				$scope.currentTerm = null
 				elasticService.search(
 					index: "dharmadict"
 					type: "terms"
 					body:
 						query:
-							match:
-								wylie: "#{$scope.searchPattern}"
+							bool:
+								should: [
+									{
+										match:
+											wylie: $scope.searchPattern
+									},
+									{
+										match:
+											sanskrit: $scope.searchPattern
+									},
+									{
+										match:
+											"translations.meanings.versions.rus": $scope.searchPattern
+									}
+									]
 				).then(
 					(resp) ->
 						$scope.terms = (hit._source for hit in resp.hits.hits)
