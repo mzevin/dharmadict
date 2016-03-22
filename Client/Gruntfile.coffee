@@ -187,6 +187,7 @@ module.exports = (grunt) ->
 					base: './public/'
 					middleware: require './server/middleware'
 					port: 5000
+					hostname: '0.0.0.0'
 					livereload: false
 
 	# Copies directories and files from one location to another.
