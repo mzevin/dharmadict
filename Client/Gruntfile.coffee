@@ -298,11 +298,11 @@ module.exports = (grunt) ->
 						'scripts/vendors.min.js'
 						'styles/custom/styles.min.css'
 					]
-					dest: '../Server/Application'
+					dest: '../Server'
 					expand: true
 				,
-					'../Server/Application/index.html': './.temp/index.min.html',
-					'../Server/Application/favicon.ico': './.temp/favicon.ico'
+					'../Server/index.html': './.temp/index.min.html',
+					'../Server/favicon.ico': './.temp/favicon.ico'
 				]
 		# Task is run when the watched index.template file is modified.
 			index:
