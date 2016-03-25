@@ -87,6 +87,7 @@ module.exports = (grunt) ->
 					"vendors/angular-resource/angular-resource.js"
 					"vendors/angular-route/angular-route.js"
 					"vendors/angular-ui-scroll/dist/ui-scroll.js"
+					"vendors/elasticsearch/elasticsearch.angular.js"
 					"vendors/**/ui-bootstrap-tpls.js"
 					"vendors/**/module/*.js"
 					"vendors/**/scripts/*.js"
@@ -411,11 +412,11 @@ module.exports = (grunt) ->
 					'./.temp/scripts/vendors.min.js': [
 						'./.temp/vendors/underscore/underscore.js'
 						'./.temp/vendors/angular/angular.js'
-						#'./.temp/scripts/libs/jquery.signalR.js'
 						'./.temp/vendors/angular-resource/angular-resource.js'
 						'./.temp/vendors/angular-route/angular-route.js'
 						'./.temp/vendors/angular-ui-scroll/dist/ui-scroll.js'
 						'./.temp/vendors/angular-bootstrap/ui-bootstrap-tpls.js'
+						'./.temp/vendors/elasticsearch/elasticsearch.angular.js'
 						'./.temp/vendors/**/module/*.js'
 						'./.temp/vendors/**/scripts/*.js'
 					],

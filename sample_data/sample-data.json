@@ -5,7 +5,7 @@
   "translations": [
     {
       "translator": "Маргарита Кожевникова",
-      "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce condimentum augue vitae erat viverra ullamcorper. Sed porttitor eget odio in fermentum. Fusce est ipsum, porttitor id eros sit amet, mollis iaculis enim. In accumsan fringilla nisl, condimentum aliquet arcu blandit vitae. In felis velit, lacinia a odio ac, tincidunt interdum quam. Praesent aliquam nulla ut turpis pretium, sed imperdiet mi varius. Pellentesque nec turpis rutrum, pretium massa eu, ornare justo. Praesent et lacus est. Fusce at risus vel lacus vestibulum scelerisque. Morbi tempor mauris sit amet arcu faucibus, quis porta elit facilisis. Praesent malesuada leo sit amet elit pellentesque, ullamcorper suscipit est scelerisque.",
+      "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       "meanings": [
         {
           "versions": [{"rus": "Дхарма"},{"rus": "духовное учение"},{"rus": "Учение"}]
@@ -95,6 +95,31 @@
         {
           "translator": "Маргарита Кожевникова",
           "meanings": [{"versions": [{"rus": "Тело воплощения"}]}]
+        }
+      ]
+    }
+  ]
+}
+
+{
+  "wylie": "byang chub kyi sems",
+  "sanskrit": "бодхичитта",
+  "wikipedia": "https://ru.wikipedia.org/wiki/Бодхичитта",
+  "translations": [
+    {
+      "translator": "Маргарита Кожевникова",
+      "comment": "дух, проникнутый стремлением достичь Пробуждения ради блага всех живых существ.",
+      "meanings": [
+        {
+          "versions": [{"rus": "дух Пробуждения"},{"rus": "устремление к Пробуждению"},{"rus": "мысль о Пробуждении"},{"rus": "Просветленный помысел"}]
+        }
+      ]
+    },
+    {
+      "translator": "Андрей Терентьев",
+      "meanings": [
+        {
+          "versions": [{"rus": "бодхичитта"},{"rus": "устремленность к Пробуждению"}]
         }
       ]
     }

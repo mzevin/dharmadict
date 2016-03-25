@@ -12,7 +12,7 @@
 					<input class="form-control" type="search" placeholder="Search"
 					       ng-model="searchPattern"
 					       ng-change="search()"
-					       ng-model-options="{ debounce: {'default': 200, 'blur': 0} }">
+					       ng-model-options="{ debounce: {'default': 300, 'blur': 0} }">
 				</div>
 			</form>
 		</div>
@@ -25,7 +25,7 @@
 	<div class="row search-results-row" ng-hide="showAboutInfo">
 		<div class="col-md-2">
 			<div class="list-group scroll-terms-list">
-			  <a href="" class="list-group-item" ng-repeat="t in terms" ng-click="showTerm(t.id)">{{t.wylie}}</a>
+			  <a href="" class="list-group-item" ng-repeat="t in terms" ng-click="showTerm($index)">{{t.wylie}}</a>
 			</div>
 		</div>
 
@@ -45,7 +45,7 @@
 				    <div class="translation-comment" ng-show="t.comment">Комментарий переводчика: {{t.comment}}</div>
 				    <ol ng-class="{'single-item': t.meanings.length==1}">
 				      <li class="meaning" ng-repeat="m in t.meanings">
-				        <span ng-repeat="v in m.versions">{{v.rus}}{{$last ? '' : ($index==v.length-2) ? ' and ' : ', '}}</span>
+				        <span ng-repeat="v in m.versions">{{v.rus}}{{$last ? '' : ($index==v.length-2) ? ' and ' : '; '}}</span>
 				      </li>
 				    </ol>
 				  </li>
