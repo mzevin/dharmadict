@@ -63,8 +63,8 @@ module.exports = (grunt) ->
 		grunt.log.writeln "File \"" + "./.temp/index.html" + "\" created."
 
 	grunt.registerTask "upload", "Uploads CSV file into Elasticsearch", (inputFile, author) ->
-		grunt.log.warn "inputFile: #{inputFile}"
-		grunt.log.warn "author: #{author}"
+		console.log "inputFile: #{inputFile}"
+		console.log "author: #{author}"
 
 		fs = require('fs')
 		return grunt.log.warn('fs lib is required') if !fs
@@ -78,19 +78,16 @@ module.exports = (grunt) ->
 		client = new elasticsearch.Client
 			host: 'localhost:9200'
 			log: 'trace'
+			keepAlive: false
 
-		#client.indices.create({index: "dharmadict"}) #unless client.indices.exists({index: "dharmadict"})
+		client.indices.create({index: "dharmadict"}) #if not client.indices.exists({index: "dharmadict"})
 
 		updateDB = (data) ->
 			if data?
-				client.create
-					index: 'dharmadict'
-					type: 'terms'
-					body: data
-				, (err, response) ->
-					grunt.log("Error processing term: " + JSON.stringify(data, null, 2));
-					if (err != null)
-					  grunt.log( "Error message: " + err.message);
+				client.index({index: 'dharmadict', type: 'terms', body: data}, (err, response) ->
+					grunt.log.warn  "Error :" + err.message if err?
+					done false
+					)
 				console.log "term added: " + term.wylie
 
 		inputStream = fs.createReadStream __dirname + '/' + inputFile
@@ -116,14 +113,16 @@ module.exports = (grunt) ->
 							}]
 						}]
 				else
-					term.translations[0].meanings.push
+					term.translations[0].meanings.push {
 						versions: {"rus": val.trim()} for val in record.translations.split(',')
 						comment: record.comment
+					}
 
 		parser.on 'finish', ->
 			updateDB term 	# upload last parsed term
-			client.close		# close elasticsearch connection
-			done true				# signal grunt that async process is complete
+			#client.flush()
+			#client.close		# close elasticsearch connection
+			#done true				# signal grunt that async process is complete
 
 		parser.on 'error', (err) ->
 			grunt.log.warn err.message
