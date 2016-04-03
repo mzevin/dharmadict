@@ -8,11 +8,11 @@
     <div class="wrap-translator-ref">
       <a href="" class="translator-ref">{{t.translator}}</a>
     </div>
-    <div class="translation-description">{{t.comment}}</div>
     <ol>
       <li class="" ng-repeat="m in t.meanings">
         <span ng-repeat="v in m.versions">{{v.rus}} {{$last ? '' : ($index==v.length-2) ? ' and ' : ', '}}</span>
       </li>
     </ol>
+    <div class="translation-description">{{t.comment}}</div>
   </li>
 </ul>
