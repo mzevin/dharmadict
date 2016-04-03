@@ -16,33 +16,18 @@ angular.module('app')
 					type: "terms"
 					body:
 						query:
-							bool:
-								should: [
-									{
-										match:
-											"wylie": $scope.searchPattern
-									},
-									{
-										match:
-											"sanskrit": $scope.searchPattern
-									},
-									{
-										match:
-											"translations.meanings.versions.rus": $scope.searchPattern
-									},
-									{
-										match:
-											"subTerms.wylie": $scope.searchPattern
-									},
-									{
-										match:
-											"subTerms.sanskrit": $scope.searchPattern
-									},
-									{
-										match:
-											"subTerms.translations.meanings.versions.rus": $scope.searchPattern
-									}
-									]
+							multi_match:
+								query: $scope.searchPattern
+								type: "most_fields"
+								operator: "and"
+								fields: [
+									"wylie"
+									"sanskrit"
+									"translations.meanings.versions.rus"
+									"subTerms.wylie"
+									"subTerms.sanskrit"
+									"subTerms.translations.meanings.versions.rus"
+								]
 				).then(
 					(resp) ->
 						$scope.terms = (hit._source for hit in resp.hits.hits)
