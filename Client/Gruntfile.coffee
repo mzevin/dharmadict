@@ -62,6 +62,75 @@ module.exports = (grunt) ->
 		grunt.file.delete(grunt.template.process(data.devScripts)) if data.devScripts
 		grunt.log.writeln "File \"" + "./.temp/index.html" + "\" created."
 
+	grunt.registerTask "upload", "Uploads CSV file into Elasticsearch", (inputFile, author) ->
+		grunt.log.warn "inputFile: #{inputFile}"
+		grunt.log.warn "author: #{author}"
+
+		fs = require('fs')
+		return grunt.log.warn('fs lib is required') if !fs
+		parse = require('csv-parse')
+		return grunt.log.warn('csv-parse lib is required') if !parse
+		elasticsearch = require('elasticsearch')
+		return grunt.log.warn('elasticsearch lib is required') if !elasticsearch
+
+		done = this.async()	# this task is async!
+
+		client = new elasticsearch.Client
+			host: 'localhost:9200'
+			log: 'trace'
+
+		#client.indices.create({index: "dharmadict"}) #unless client.indices.exists({index: "dharmadict"})
+
+		updateDB = (data) ->
+			if data?
+				client.create
+					index: 'dharmadict'
+					type: 'terms'
+					body: data
+				, (err, response) ->
+					grunt.log("Error processing term: " + JSON.stringify(data, null, 2));
+					if (err != null)
+					  grunt.log( "Error message: " + err.message);
+				console.log "term added: " + term.wylie
+
+		inputStream = fs.createReadStream __dirname + '/' + inputFile
+
+		parser = parse {columns: true, delimiter: ','}
+		term = null
+
+		parser.on 'readable', ->
+			while (record = parser.read())?
+				if record.wylie != "*"
+					# save previous term if any
+					updateDB term
+					# start reading new one
+					term =
+						wylie: record.wylie
+						sanskrit: record.sanskrit
+						wikipedia: record.wikipedia
+						translations: [{
+							translator: author
+							meanings: [{
+								versions: {"rus": val.trim()} for val in record.translations.split(',')
+								comment: record.comment
+							}]
+						}]
+				else
+					term.translations[0].meanings.push
+						versions: {"rus": val.trim()} for val in record.translations.split(',')
+						comment: record.comment
+
+		parser.on 'finish', ->
+			updateDB term 	# upload last parsed term
+			client.close		# close elasticsearch connection
+			done true				# signal grunt that async process is complete
+
+		parser.on 'error', (err) ->
+			grunt.log.warn err.message
+			done true
+
+		inputStream.pipe(parser).pipe(process.stdout)
+
 	grunt.initConfig
 	# Deletes deployment and temp directories.
 	# The temp directory is used during the build process.
@@ -684,3 +753,10 @@ module.exports = (grunt) ->
 		'uglify:miniprod'
 		'copy:prod'
 	]
+
+
+	###
+	grunt.registerTask 'upload', [
+		'upload_csv:data'
+	]
+	###
