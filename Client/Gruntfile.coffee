@@ -66,6 +66,9 @@ module.exports = (grunt) ->
 		console.log "inputFile: #{inputFile}"
 		console.log "author: #{author}"
 
+		indexName = "dharmadict"
+		typeName = "terms"
+
 		fs = require('fs')
 		return grunt.log.warn('fs lib is required') if !fs
 		parse = require('csv-parse')
@@ -80,18 +83,26 @@ module.exports = (grunt) ->
 			log: 'trace'
 			keepAlive: false
 
-		client.indices.create({index: "dharmadict"}) #if not client.indices.exists({index: "dharmadict"})
+		bulkObject = {body: []}
 
-		updateDB = (data) ->
-			if data?
-				client.index({index: 'dharmadict', type: 'terms', body: data}, (err, response) ->
-					grunt.log.warn  "Error :" + err.message if err?
-					done false
-					)
-				console.log "term added: " + term.wylie
+		client.indices.create {index: "dharmadict"} unless client.indices.exists {index: "dharmadict"}
+
+		addTerm = (term) ->
+			if term?
+				termId = term.wylie.split(" ").join("_")
+				# add action
+				bulkObject.body.push { index: { _index: indexName, _type: typeName, _id: termId } }
+				# add document
+				bulkObject.body.push term
+				console.log "term #{termId} added to bulk object"
+
+		updateDB = ->
+			client.bulk(bulkObject, (err, response) ->
+				grunt.log.warn  "Error :" + err.message if err?
+				done true
+				)
 
 		inputStream = fs.createReadStream __dirname + '/' + inputFile
-
 		parser = parse {columns: true, delimiter: ','}
 		term = null
 
@@ -99,7 +110,7 @@ module.exports = (grunt) ->
 			while (record = parser.read())?
 				if record.wylie != "*"
 					# save previous term if any
-					updateDB term
+					addTerm term if term?
 					# start reading new one
 					term =
 						wylie: record.wylie
@@ -119,14 +130,14 @@ module.exports = (grunt) ->
 					}
 
 		parser.on 'finish', ->
-			updateDB term 	# upload last parsed term
-			#client.flush()
-			#client.close		# close elasticsearch connection
-			#done true				# signal grunt that async process is complete
+			addTerm term if term?
+			updateDB()
+			#console.log JSON.stringify(bulkObject, null, 2)
+			client.close		# close elasticsearch connection
 
 		parser.on 'error', (err) ->
 			grunt.log.warn err.message
-			done true
+			done false
 
 		inputStream.pipe(parser).pipe(process.stdout)
 
