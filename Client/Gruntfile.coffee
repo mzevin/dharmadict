@@ -85,16 +85,19 @@ module.exports = (grunt) ->
 
 		bulkObject = {body: []}
 
-		client.indices.create {index: "dharmadict"} unless client.indices.exists {index: "dharmadict"}
+		client.indices.create {index: indexName} unless client.indices.exists {index: indexName}
 
 		addTerm = (term) ->
 			if term?
 				termId = term.wylie.split(" ").join("_")
 				# add action
-				bulkObject.body.push { index: { _index: indexName, _type: typeName, _id: termId } }
+				bulkObject.body.push { update: { _index: indexName, _type: typeName, _id: termId } }
 				# add document
-				bulkObject.body.push term
-				console.log "term #{termId} added to bulk object"
+				bulkObject.body.push
+					script: "if (ctx._source.containsKey('translations')) {ctx._source.translations += translation;} else {ctx._source.translations = [translation]}"
+					upsert: term
+					params:
+						translation: term.translations[0]
 
 		updateDB = ->
 			client.bulk(bulkObject, (err, response) ->
