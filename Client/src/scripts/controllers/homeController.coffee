@@ -45,4 +45,8 @@ angular.module('app')
 			$scope.showComment = (idx) ->
 				$('#comment-'+idx).removeClass("hidden")
 				return
+
+			$scope.hideComment = (idx) ->
+				$('#comment-'+idx).addClass("hidden")
+				return
 	])
