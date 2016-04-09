@@ -66,6 +66,8 @@ module.exports = (grunt) ->
 		console.log "inputFile: #{inputFile}"
 		console.log "author: #{author}"
 
+		author = "М.Н. Кожевникова" if author == "MK"
+		author = "А. Кугявичус - А.А. Терентьев" if author == "AAT"
 		indexName = "dharmadict"
 		typeName = "terms"
 
