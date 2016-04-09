@@ -42,11 +42,11 @@ angular.module('app')
 			$scope.toggleAbout = () ->
 				$scope.showAboutInfo = not $scope.showAboutInfo
 
-			$scope.showComment = (idx) ->
-				$('#comment-'+idx).removeClass("hidden")
+			$scope.showComment = (tIdx, mIdx) ->
+				$("#comment-#{tIdx}-#{mIdx}").removeClass("hidden")
 				return
 
-			$scope.hideComment = (idx) ->
-				$('#comment-'+idx).addClass("hidden")
+			$scope.hideComment = (tIdx, mIdx) ->
+				$("#comment-#{tIdx}-#{mIdx}").addClass("hidden")
 				return
 	])
