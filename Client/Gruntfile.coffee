@@ -62,12 +62,13 @@ module.exports = (grunt) ->
 		grunt.file.delete(grunt.template.process(data.devScripts)) if data.devScripts
 		grunt.log.writeln "File \"" + "./.temp/index.html" + "\" created."
 
-	grunt.registerTask "upload", "Uploads CSV file into Elasticsearch", (inputFile, author) ->
+	grunt.registerTask "upload", "Uploads CSV file into Elasticsearch", (inputFile, author, elasticHost) ->
 		console.log "inputFile: #{inputFile}"
 		console.log "author: #{author}"
 
 		author = "М.Н. Кожевникова" if author == "MK"
 		author = "А. Кугявичус - А.А. Терентьев" if author == "AAT"
+		elasticHost = "localhost" unless elasticHost?
 		indexName = "dharmadict"
 		typeName = "terms"
 
@@ -81,7 +82,7 @@ module.exports = (grunt) ->
 		done = this.async()	# this task is async!
 
 		client = new elasticsearch.Client
-			host: 'localhost:9200'
+			host: elasticHost + ':9200'
 			log: 'trace'
 			keepAlive: false
 
