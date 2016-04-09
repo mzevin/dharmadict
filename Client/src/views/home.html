@@ -42,10 +42,14 @@
 				    <div class="wrap-translator-ref">
 				      <a href="" class="translator-ref">{{t.translator}}</a>
 				    </div>
-				    <div class="translation-comment" ng-show="t.comment">Комментарий переводчика: {{t.comment}}</div>
 				    <ol ng-class="{'single-item': t.meanings.length==1}">
 				      <li class="meaning" ng-repeat="m in t.meanings">
-				        <span ng-repeat="v in m.versions">{{v.rus}}{{$last ? '' : ($index==v.length-2) ? ' and ' : '; '}}</span>
+				        <span ng-repeat="v in m.versions">{{v.rus}}{{$last ? '' : ($index==v.length-2) ? ' and ' : '; '}}
+									<!--button type="button" class="btn btn-default" aria-label="Комментарий переодчика"-->
+										<span class="glyphicon glyphicon-comment" aria-hidden="true" ng-click="showComment($index)" ng-show="m.comment"></span>
+									<!--/button-->
+								</span>
+								<span id="{{'comment-'+$index}}" class="translation-comment hidden">{{m.comment}}</span>
 				      </li>
 				    </ol>
 				  </li>

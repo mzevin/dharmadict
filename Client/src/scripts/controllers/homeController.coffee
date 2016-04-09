@@ -41,4 +41,8 @@ angular.module('app')
 
 			$scope.toggleAbout = () ->
 				$scope.showAboutInfo = not $scope.showAboutInfo
+
+			$scope.showComment = (idx) ->
+				$('#comment-'+idx).removeClass("hidden")
+				return
 	])
