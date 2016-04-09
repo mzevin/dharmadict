@@ -44,9 +44,8 @@
 				    </div>
 				    <ol ng-class="{'single-item': t.meanings.length==1}">
 				      <li class="meaning" ng-repeat="m in t.meanings">
-				        <span ng-repeat="v in m.versions">{{v.rus}}{{$last ? '' : ($index==v.length-2) ? ' and ' : '; '}}
-										<span class="glyphicon glyphicon-comment" aria-hidden="true" ng-mouseover="showComment($index)" ng-mouseleave="hideComment($index)" ng-show="m.comment"></span>
-								</span>
+				        <span ng-repeat="v in m.versions">{{v.rus}}{{$last ? '' : ($index==v.length-2) ? ' and ' : '; '}}</span>
+								<span class="glyphicon glyphicon-comment" aria-hidden="true" ng-mouseover="showComment($index)" ng-mouseleave="hideComment($index)" ng-show="m.comment"></span>
 								<span id="{{'comment-'+$index}}" class="translation-comment hidden">{{m.comment}}</span>
 				      </li>
 				    </ol>
