@@ -111,7 +111,8 @@ module.exports = (grunt) ->
 
 		parser.on 'readable', ->
 			while (record = parser.read())?
-				if record.wylie != "*" && record.translations != null && record.translations.length > 0
+				continue if record.translations == null || record.translations.length == 0
+				if record.wylie != "*"
 					# save previous term if any
 					addTerm term if term?
 					# start reading new one
