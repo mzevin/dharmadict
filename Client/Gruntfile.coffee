@@ -259,6 +259,11 @@ module.exports = (grunt) ->
 				options:
 					bare: true
 					sourceMap: false
+			server:
+				files:
+					'../Server/app.js': './server/prod-server.coffee'
+				options:
+					bare: true
 
 	# Compile LESS (.less) files to CSS (.css).
 		less:
@@ -732,6 +737,7 @@ module.exports = (grunt) ->
 		'template:prod'
 		'minifyHtml'
 		'copy:prod'
+		'coffee:server'
 	]
 
 	grunt.registerTask 'localprod', [
