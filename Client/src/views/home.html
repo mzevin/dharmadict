@@ -45,8 +45,10 @@
 				    <ol ng-class="{'single-item': t.meanings.length==1}">
 				      <li class="meaning" ng-repeat="m in t.meanings">
 				        <span ng-repeat="v in m.versions">{{v.rus}}{{$last ? '' : ($index==v.length-2) ? ' and ' : '; '}}</span>
+								<!--span class="glyphicon glyphicon-comment" aria-hidden="true" ng-click="toggleComment(translatorIndex,$index)" ng-show="m.comment"></span-->
+								<!--button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-comment" ng-model="singleModel" uib-btn-checkbox></button-->
 								<span ng-show="m.comment">
-									<button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-comment" ng-click="toggleComment(translatorIndex,$index)"></button>
+									<button type="button" class="btn btn-primary btn-xs uib-btn-checkbox glyphicon glyphicon-comment" ng-click="toggleComment(translatorIndex,$index)"></button>
 								</span>
 								<span id="{{'comment-'+translatorIndex+'-'+$index}}" class="translation-comment hidden">{{m.comment}}</span>
 				      </li>

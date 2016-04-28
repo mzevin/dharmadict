@@ -31,6 +31,7 @@ angular.module('app')
 				).then(
 					(resp) ->
 						$scope.terms = (hit._source for hit in resp.hits.hits)
+						$scope.currentTerm = $scope.terms[0] if $scope.terms.length == 1
 					,
 					(err) ->
 						console.trace(err.message)
