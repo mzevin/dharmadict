@@ -42,6 +42,11 @@ angular.module('app')
 			$scope.toggleAbout = () ->
 				$scope.showAboutInfo = not $scope.showAboutInfo
 
+			$scope.toggleComment = (tIdx, mIdx) ->
+				idSelector = "#comment-#{tIdx}-#{mIdx}"
+				if $(idSelector).hasClass("hidden") then $(idSelector).removeClass("hidden") else $(idSelector).addClass("hidden")
+				return
+			###
 			$scope.showComment = (tIdx, mIdx) ->
 				$("#comment-#{tIdx}-#{mIdx}").removeClass("hidden")
 				return
@@ -49,4 +54,5 @@ angular.module('app')
 			$scope.hideComment = (tIdx, mIdx) ->
 				$("#comment-#{tIdx}-#{mIdx}").addClass("hidden")
 				return
+			###
 	])
