@@ -1,7 +1,7 @@
 angular.module('app').service('termsService', [
 	'termsResource', (termsResource) ->
 
-		search: (callback) ->
-			termsResource.list {}, (response) ->
+		search: (searchPattern, callback) ->
+			termsResource.search {'searchPattern': searchPattern}, (response) ->
 				callback(response)
 ])

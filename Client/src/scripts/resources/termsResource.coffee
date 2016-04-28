@@ -2,8 +2,8 @@ angular.module('app')
 
 .factory('termsResource',
 	['$resource', ($resource) ->
-		$resource 'api/terms/:id', {}, {
+		$resource 'api/terms/:pattern', {}, {
 			get: { method: 'GET' }
-			list: { method: 'GET', isArray: true }
+			search: { method: 'GET', params: {pattern: '@searchPattern'}, isArray: true }
 		}
 	])
