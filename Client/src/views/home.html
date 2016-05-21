@@ -33,7 +33,7 @@
 			<div class="term" ng-show="currentTerm != null">
 				<!--div ng-include="'views/_term.html'"></div-->
 				<h1>{{currentTerm.wylie}}</h1>
-				<h3>Санскрит: {{currentTerm.sanskrit}}</h3>
+				<h3>Санскрит: {{currentTerm.sanskrit_rus}}</h3>
 				<div class="wrap-wikilink">
 				  <a href="{{currentTerm.wikipedia}}" class="wikilink">wiki</a>
 				</div>
@@ -54,32 +54,6 @@
 				      </li>
 				    </ol>
 				  </li>
-				</ul>
-			</div>
-
-			<div class="subTerms" ng-show="currentTerm.subTerms">
-				<ul class="subterms-list" ng-repeat="st in currentTerm.subTerms">
-					<li class="subterm">
-						<!--div ng-include="'views/_term.html'"></div-->
-						<h1>{{st.wylie}}</h1>
-						<h3>Санскрит: {{st.sanskrit}}</h3>
-						<div class="wrap-wikilink">
-						  <a href="{{st.wikipedia}}" class="wikilink">wiki</a>
-						</div>
-						<ul class="translations-list">
-						  <li class="translation" ng-repeat="t in st.translations">
-						    <div class="wrap-translator-ref">
-						      <a href="" class="translator-ref">{{t.translator}}</a>
-						    </div>
-						    <div class="translation-comment" ng-show="t.comment">Комментарий переводчика: {{t.comment}}</div>
-						    <ol ng-class="{'single-item': t.meanings.length==1}">
-						      <li class="meaning" ng-repeat="m in t.meanings">
-						        <span ng-repeat="v in m.versions">{{v.rus}}{{$last ? '' : ($index==v.length-2) ? ' and ' : ', '}}</span>
-						      </li>
-						    </ol>
-						  </li>
-						</ul>
-					</li>
 				</ul>
 			</div>
 		</div>

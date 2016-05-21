@@ -22,7 +22,8 @@ app.configure () ->
 						operator: "and"
 						fields: [
 							"wylie"
-							"sanskrit"
+							"sanskrit_rus"
+							"sanskrit_eng"
 							"translations.meanings.versions.rus"
 						]
 		.then (result) ->

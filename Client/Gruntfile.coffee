@@ -62,12 +62,20 @@ module.exports = (grunt) ->
 		grunt.file.delete(grunt.template.process(data.devScripts)) if data.devScripts
 		grunt.log.writeln "File \"" + "./.temp/index.html" + "\" created."
 
+
 	grunt.registerTask "upload", "Uploads CSV file into Elasticsearch", (inputFile, author, elasticHost) ->
 		console.log "inputFile: #{inputFile}"
 		console.log "author: #{author}"
 
-		author = "М.Н. Кожевникова" if author == "MK"
-		author = "А. Кугявичус - А.А. Терентьев" if author == "AAT"
+		# when 'author' parmameter is missed, it means that we are loading basic terms description file (w/o translations field)
+		loadTermsDesc = author == null || author == undefined
+		if author == "HOP" then lang = "eng" else lang = "rus"
+		if author?
+			author = "М.Н. Кожевникова" if author == "MK"
+			author = "А. Кугявичус - А.А. Терентьев" if author == "AAT"
+			author = "Б.И. Загуменнов" if author == "BZ"
+			author = "J. Hopkins" if author == "HOP"
+
 		elasticHost = "localhost" unless elasticHost?
 		indexName = "dharmadict"
 		typeName = "terms"
@@ -96,11 +104,16 @@ module.exports = (grunt) ->
 				# add action
 				bulkObject.body.push { update: { _index: indexName, _type: typeName, _id: termId } }
 				# add document
-				bulkObject.body.push
-					script: "if (ctx._source.containsKey('translations')) {ctx._source.translations += translation;} else {ctx._source.translations = [translation]}"
-					upsert: term
-					params:
-						translation: term.translations[0]
+				if loadTermsDesc
+					bulkObject.body.push
+						doc: term
+						doc_as_upsert : true
+				else
+					bulkObject.body.push
+						script: "if (ctx._source.containsKey('translations')) {ctx._source.translations += translation;} else {ctx._source.translations = [translation]}"
+						upsert: term
+						params:
+							translation: term.translations[0]
 
 		updateDB = ->
 			client.bulk(bulkObject, (err, response) ->
@@ -114,25 +127,30 @@ module.exports = (grunt) ->
 
 		parser.on 'readable', ->
 			while (record = parser.read())?
-				continue if record.translations == null || record.translations.length == 0
+				continue unless record.wylie
 				if record.wylie != "*"
 					# save previous term if any
 					addTerm term if term?
 					# start reading new one
-					term =
-						wylie: record.wylie
-						sanskrit: record.sanskrit
-						wikipedia: record.wikipedia
-						translations: [{
-							translator: author
-							meanings: [{
-								versions: {"rus": val.trim()} for val in record.translations.split(',')
-								comment: record.comment
+					if loadTermsDesc
+						term =
+							wylie: record.wylie
+							sanskrit_rus: record.sanskrit_rus
+							sanskrit_eng: record.sanskrit_eng
+							wikipedia: record.wikipedia
+					else if !!record.translations
+						term =
+							wylie: record.wylie
+							translations: [{
+								translator: author
+								meanings: [{
+									versions: {rus: val.trim()} for val in record.translations.split(',') # TODO: language
+									comment: record.comment
+								}]
 							}]
-						}]
-				else
+				else if !!record.translations
 					term.translations[0].meanings.push {
-						versions: {"rus": val.trim()} for val in record.translations.split(',')
+						versions: {rus: val.trim()} for val in record.translations.split(',') # TODO: language
 						comment: record.comment
 					}
 
