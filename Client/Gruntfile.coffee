@@ -72,9 +72,9 @@ module.exports = (grunt) ->
 		if author == "HOP" then lang = "eng" else lang = "rus"
 		if author?
 			author = "М.Н. Кожевникова" if author == "MK"
-			author = "А. Кугявичус - А.А. Терентьев" if author == "AAT"
+			author = "А. Кугявичус - А.А. Терентьев" if author == "KT"
 			author = "Б.И. Загуменнов" if author == "BZ"
-			author = "J. Hopkins" if author == "HOP"
+			author = "J. Hopkins" if author == "JH"
 
 		elasticHost = "localhost" unless elasticHost?
 		indexName = "dharmadict"
@@ -148,11 +148,15 @@ module.exports = (grunt) ->
 									comment: record.comment
 								}]
 							}]
+					else
+						term = null
 				else if !!record.translations
 					term.translations[0].meanings.push {
 						versions: {rus: val.trim()} for val in record.translations.split(',') # TODO: language
 						comment: record.comment
 					}
+				else
+					term = null
 
 		parser.on 'finish', ->
 			addTerm term if term?
