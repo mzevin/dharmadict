@@ -93,10 +93,9 @@ module.exports = (grunt) ->
 			host: elasticHost + ':9200'
 			log: 'trace'
 			keepAlive: false
+		client.indices.create {index: indexName} unless client.indices.exists {index: indexName}
 
 		bulkObject = {body: []}
-
-		client.indices.create {index: indexName} unless client.indices.exists {index: indexName}
 
 		addTerm = (term) ->
 			if term?
@@ -113,7 +112,7 @@ module.exports = (grunt) ->
 						script: "if (ctx._source.containsKey('translations')) {ctx._source.translations += translation;} else {ctx._source.translations = [translation]}"
 						upsert: term
 						params:
-							translation: term.translations[0]
+							translation: term.translation
 
 		updateDB = ->
 			client.bulk(bulkObject, (err, response) ->
@@ -123,43 +122,31 @@ module.exports = (grunt) ->
 
 		inputStream = fs.createReadStream __dirname + '/' + inputFile
 		parser = parse {columns: true, delimiter: ','}
-		term = null
 
 		parser.on 'readable', ->
 			while (record = parser.read())?
-				continue unless record.wylie
-				if record.wylie != "*"
-					# save previous term if any
-					addTerm term if term?
-					# start reading new one
-					if loadTermsDesc
-						term =
-							wylie: record.wylie
-							sanskrit_rus: record.sanskrit_rus
-							sanskrit_eng: record.sanskrit_eng
-							wikipedia: record.wikipedia
-					else if !!record.translations
-						term =
-							wylie: record.wylie
-							translations: [{
-								translator: author
-								meanings: [{
-									versions: {rus: val.trim()} for val in record.translations.split(',') # TODO: language
-									comment: record.comment
-								}]
-							}]
-					else
-						term = null
+				continue unless record.wylie?
+				if loadTermsDesc
+					addTerm
+						wylie: record.wylie
+						sanskrit_rus: record.sanskrit_rus
+						sanskrit_eng: record.sanskrit_eng
+						wikipedia: record.wikipedia
 				else if !!record.translations
-					term.translations[0].meanings.push {
-						versions: {rus: val.trim()} for val in record.translations.split(',') # TODO: language
-						comment: record.comment
-					}
-				else
-					term = null
+					comments = if record.comment? then record.comment.split('+') else []
+					mngs = []
+					record.translations.split('+').map (val, i) =>
+						mngs.push {
+							versions: {rus: ver.trim()} for ver in val.split(',') # TODO: language
+							comment: if comments.length > i then comments[i].trim() else null
+						}
+					addTerm
+						wylie: record.wylie
+						translation:
+							translator: author
+							meanings: mngs
 
 		parser.on 'finish', ->
-			addTerm term if term?
 			updateDB()
 			#console.log JSON.stringify(bulkObject, null, 2)
 			client.close		# close elasticsearch connection
