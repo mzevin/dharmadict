@@ -33,9 +33,9 @@
 			<div class="term" ng-show="currentTerm != null">
 				<!--div ng-include="'views/_term.html'"></div-->
 				<h1>{{currentTerm.wylie}}</h1>
-				<h3>Санскрит: {{currentTerm.sanskrit_rus}}</h3>
+				<h3 ng-show="currentTerm.sanskrit_rus.length > 0">Санскрит: {{currentTerm.sanskrit_rus}}</h3>
 				<div class="wrap-wikilink">
-				  <a ng-href="{{currentTerm.wikipedia}}" class="wikilink" target="_blank" ng-show="currentTerm.wikipedia != null && currentTerm.wikipedia.length > 0">Wikipedia</a>
+				  <a ng-href="{{currentTerm.wikipedia}}" class="wikilink" target="_blank" ng-show="currentTerm.wikipedia.length > 0">Wikipedia</a>
 				</div>
 				<ul class="translations-list">
 				  <li class="translation" ng-repeat="t in currentTerm.translations" ng-init="translatorIndex = $index">
