@@ -2,7 +2,7 @@ terms = [
 	{
 		id: "1"
 		wylie: "chos"
-		sanskrit: "дхамма, дхарма"
+		sanskrit_rus: "дхамма, дхарма"
 		wikipedia: "http://wikipedia.org/x/"
 		translations: [
 			{
@@ -17,6 +17,15 @@ terms = [
 						comment: "Все те элементы, представляющие из себя моменты сознания, на которые раскладывается психо-мир в буддийской теории (абидарма), метафизике"
 					}
 				]
+			},
+			{
+				translator: "Б.И. Загуменнов"
+				comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce condimentum augue vitae erat viverra ullamcorper. Sed porttitor eget odio in fermentum. Fusce est ipsum, porttitor id eros sit amet, mollis iaculis enim. In accumsan fringilla nisl, condimentum aliquet arcu blandit vitae. In felis velit, lacinia a odio ac, tincidunt interdum quam. Praesent aliquam nulla ut turpis pretium, sed imperdiet mi varius. Pellentesque nec turpis rutrum, pretium massa eu, ornare justo. Praesent et lacus est. Fusce at risus vel lacus vestibulum scelerisque. Morbi tempor mauris sit amet arcu faucibus, quis porta elit facilisis. Praesent malesuada leo sit amet elit pellentesque, ullamcorper suscipit est scelerisque."
+				meanings: [
+					{
+						versions: [{rus: "Дхарма"},{rus: "Учение"}]
+					}
+				]
 			}
 		]
 	},
@@ -28,10 +37,10 @@ terms = [
 		translations: [
 			{
 				translator: "Маргарита Кожевникова"
-				comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce condimentum augue vitae erat viverra ullamcorper. Sed porttitor eget odio in fermentum. Fusce est ipsum, porttitor id eros sit amet, mollis iaculis enim. In accumsan fringilla nisl, condimentum aliquet arcu blandit vitae. In felis velit, lacinia a odio ac, tincidunt interdum quam. Praesent aliquam nulla ut turpis pretium, sed imperdiet mi varius. Pellentesque nec turpis rutrum, pretium massa eu, ornare justo. Praesent et lacus est. Fusce at risus vel lacus vestibulum scelerisque. Morbi tempor mauris sit amet arcu faucibus, quis porta elit facilisis. Praesent malesuada leo sit amet elit pellentesque, ullamcorper suscipit est scelerisque."
 				meanings: [
 					{
 						versions: [{rus: "подлинное-бытие"}]
+						comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce condimentum augue vitae erat viverra ullamcorper. Sed porttitor eget odio in fermentum. Fusce est ipsum, porttitor id eros sit amet, mollis iaculis enim. In accumsan fringilla nisl, condimentum aliquet arcu blandit vitae. In felis velit, lacinia a odio ac, tincidunt interdum quam. Praesent aliquam nulla ut turpis pretium, sed imperdiet mi varius. Pellentesque nec turpis rutrum, pretium massa eu, ornare justo. Praesent et lacus est. Fusce at risus vel lacus vestibulum scelerisque. Morbi tempor mauris sit amet arcu faucibus, quis porta elit facilisis. Praesent malesuada leo sit amet elit pellentesque, ullamcorper suscipit est scelerisque."
 					}
 				]
 			}

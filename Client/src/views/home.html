@@ -1,60 +1,79 @@
 <div ng-controller="homeController">
+
 	<div class="row">
-		<div class="col-md-12 text-right">
-			  <a href="" ng-click="toggleAbout()">О проекте</a>
-		</div>
-	</div>
-
-	<div class="row search-row">
-		<div class="col-md-6 col-md-offset-3">
-			<form>
-				<div class="form-group form-group-search">
-					<input class="form-control" type="search" placeholder="Search"
-					       ng-model="searchPattern"
-					       ng-change="search()"
-					       ng-model-options="{ debounce: {'default': 300, 'blur': 0} }">
-				</div>
-			</form>
-		</div>
-	</div>
-
-	<div class="row about-row" ng-show="showAboutInfo">
-		<div class="about" ng-include="'views/_about.html'"></div>
-	</div>
-
-	<div class="row search-results-row" ng-hide="showAboutInfo">
 		<div class="col-md-2">
-			<div class="list-group scroll-terms-list">
-			  <a href="" class="list-group-item" ng-repeat="t in terms" ng-click="showTerm($index)">{{t.wylie}}</a>
-			</div>
+			<img src="img/manjushri.jpg" style="max-width:100%; max-height:100%;" />
 		</div>
 
 		<div class="col-md-10">
-			<div class="term" ng-show="currentTerm != null">
-				<!--div ng-include="'views/_term.html'"></div-->
-				<h1>{{currentTerm.wylie}}</h1>
-				<h3 ng-show="currentTerm.sanskrit_rus.length > 0">Санскрит: {{currentTerm.sanskrit_rus}}</h3>
-				<div class="wrap-wikilink">
-				  <a ng-href="{{currentTerm.wikipedia}}" class="wikilink" target="_blank" ng-show="currentTerm.wikipedia.length > 0">Wikipedia</a>
-				</div>
-				<ul class="translations-list">
-				  <li class="translation" ng-repeat="t in currentTerm.translations" ng-init="translatorIndex = $index">
-				    <div class="wrap-translator-ref">
-				      <a href="" class="translator-ref">{{t.translator}}</a>
-				    </div>
-				    <ol class="meanings" ng-class="{'single-item': t.meanings.length==1}">
-				      <li class="meaning" ng-repeat="m in t.meanings">
-				        <span ng-repeat="v in m.versions">{{v.rus}}{{$last ? '' : ($index==v.length-2) ? ' and ' : '; '}}</span>
-								<!--span class="glyphicon glyphicon-comment" aria-hidden="true" ng-click="toggleComment(translatorIndex,$index)" ng-show="m.comment"></span-->
-								<!--button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-comment" ng-model="singleModel" uib-btn-checkbox></button-->
-								<span ng-show="m.comment">
-									<button type="button" class="btn btn-primary btn-xs uib-btn-checkbox glyphicon glyphicon-comment" ng-click="toggleComment(translatorIndex,$index)"></button>
-								</span>
-								<span id="{{'comment-'+translatorIndex+'-'+$index}}" class="translation-comment hidden">{{m.comment}}</span>
-				      </li>
-				    </ol>
-				  </li>
-				</ul>
+			<div class="row header-row">
+					<div class="col-md-12">
+						<h1><em>Буддийская терминология</em> в русских переводах</h1>
+					</div>
 			</div>
+
+			<div class="row search-row" > <!-- ng-include="'views/_search.html'" -->
+				<div class="col-md-12">
+					<form>
+			      <div class="form-group">
+			        <div class="col-md-6">
+			          <label class="sr-only" for="inputTerm">Термин:</label>
+			          <input type="search" class="form-control col-md-7" id="inputTerm" placeholder="Термин" ng-keyup="$event.keyCode == 13 ? search() : null">
+			        </div>
+			        <div class="col-md-1">
+			          <form>
+			            <div class="form-group">
+			              <button type="submit" class="btn btn-default" ng-click="search()">Найти</button>
+			            </div>
+			          </form>
+			        </div>
+			      </div>
+			    </form>
+				</div>
+			</div>
+
+			<div class="row about-row" ng-show="showAboutInfo">
+				<div class="col-md-12">
+					<div class="about" ng-include="'views/_about.html'"></div>
+				</div>
+			</div>
+
+			<div class="row search-results-row" ng-hide="showAboutInfo">
+				<div class="col-md-2">
+					<div class="list-group scroll-terms-list">
+					  <a href="" class="list-group-item" ng-repeat="t in terms" ng-click="showTerm($index)">{{t.wylie}}</a>
+					</div>
+				</div>
+
+				<div class="col-md-10">
+					<div class="term" ng-show="currentTerm != null">
+						<!--div ng-include="'views/_term.html'"></div-->
+						<div class="term-header">
+							<div class="wylie">{{currentTerm.wylie}}</div>
+							<div class="sanskrit" ng-show="currentTerm.sanskrit_rus.length > 0">Санскрит: {{currentTerm.sanskrit_rus}}</div>
+						</div>
+						<ul class="translations-list">
+						  <li class="translation" ng-repeat="t in currentTerm.translations" ng-init="translatorIndex = $index">
+						    <div class="wrap-translator-ref">
+						      <a href="" class="translator-ref">{{t.translator}}</a>
+						    </div>
+						    <ol class="meanings" ng-class="{'single-item': t.meanings.length==1}">
+						      <li class="meaning" ng-repeat="m in t.meanings">
+						        <span ng-repeat="v in m.versions">{{v.rus}}{{$last ? '' : ($index==v.length-2) ? ' and ' : '; '}}</span>
+										<!--span class="glyphicon glyphicon-comment" aria-hidden="true" ng-click="toggleComment(translatorIndex,$index)" ng-show="m.comment"></span-->
+										<!--button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-comment" ng-model="singleModel" uib-btn-checkbox></button-->
+										<span ng-show="m.comment">
+											<a ng-click="toggleComment(translatorIndex,$index)">&gt;&gt;&gt;</a>
+										</span>
+										<span id="{{'comment-'+translatorIndex+'-'+$index}}" class="translation-comment hidden">{{m.comment}}</span>
+						      </li>
+						    </ol>
+						  </li>
+						</ul>
+					</div>
+				</div>
+
 		</div>
-</div>
+	</div>
+
+</div> <!-- homeCntroller -->

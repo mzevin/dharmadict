@@ -1,0 +1,26 @@
+<div class="row" >
+    <form>
+      <div class="form-group">
+        <div class="col-md-7">
+          <label class="sr-only" for="inputTerm">Термин:</label>
+          <input type="search" class="form-control col-md-7" id="inputTerm" placeholder="Термин" ng-keyup="$event.keyCode == 13 ? search() : null">
+        </div>
+        <div class="col-md-1">
+          <form>
+            <div class="form-group">
+              <button type="submit" class="btn btn-default" ng-click="search()">Найти</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </form>
+</div>
+
+<!--div class="row">
+  <div class="col-md-5 col-md-offset-2">
+    <div class="checkbox">
+      <label>Английские варианты перевода	<input type="checkbox" ng-model="showEnglish">
+      </label>
+    </div>
+  </div>
+</div-->

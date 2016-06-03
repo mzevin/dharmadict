@@ -1,12 +1,27 @@
-//@import "variables.less";
+@import "variables.less";
 @import "mixins.less";
 @import "icomoon-glyphs.less";
+@import "fonts.less";
+@import "navbar.less";
 
 body {
   padding-top: 20px;
 }
 
 .container {
+  font-family: Calibri;
+}
+
+.header-row {
+  text-align: left;
+  color: @green;
+  h1 {
+    font-family: PentaLight;
+    em {
+      font-family: PentaBold;
+      font-style: normal;
+    }
+  }
 }
 
 .search-row {
@@ -26,20 +41,26 @@ body {
   }
 }
 .term {
-  h1 {
+  .term-header {
+    color: @white;
+    background-color: @green;
+    padding: 5px 0 5px 0;
+  }
+
+  .wylie {
+      font-size: 20px;
+      font-weight: bold;
       margin-top: 0px;
       text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-      color: black;
   }
-  h3 {
+
+  .sanskrit {
+      font-size: 14px;
+      font-weight: normal;
       margin-top: 0px;
       text-align: center;
-      font-size: 16px;
-      font-weight: bold;
-      color: black;
   }
+
   ul {
     list-style-type: none;
     margin-top: 10px;
@@ -61,48 +82,16 @@ body {
   padding-left: 0;
 }
 
-.subTerms {
-  ul {
-    list-style-type: none;
-  }
-}
-
-.subterm {
-  h1 {
-      margin-top: 0px;
-      text-align: center;
-      font-size: 18px;
-      font-weight: bold;
-      color: black;
-  }
-  h3 {
-      margin-top: 0px;
-      text-align: center;
-      font-size: 14px;
-      font-weight: bold;
-      color: black;
-  }
-  ul {
-    list-style-type: none;
-    margin-top: 10px;
-  }
-  ol li {
-    font-weight: bold;
-  }
-  .wrap-wikilink {
-    text-align: center;
-    font-size: 10px;
-  }
-}
 
 .translations-list {
   padding-left: 0px;
 
   .translation {
-    border: 1px hsl(0,0%,75%) solid;
-    border-radius: 8px;
-    padding: 10px 20px 20px 20px;
-    margin-top: 15px;
+    border-bottom: 1px hsl(0,0%,75%) solid;
+    border-radius: 0px;
+    font-size: 14px;
+    padding: 0px 0px 15px 0px;
+    margin-top: 5px;
 
     .meanings {
       padding-left: 20px;
@@ -116,8 +105,11 @@ body {
 
     .wrap-translator-ref {
       text-align: right;
-      font-size: 12px;
       padding-bottom: 5px;
+
+      a {
+        color: @green;
+      }
     }
   }
 }
