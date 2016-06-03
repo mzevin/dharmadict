@@ -28,9 +28,20 @@ body {
   margin-bottom: 20px;
 }
 
+#searchButton {
+  background-color: @grayLight;
+}
+
 .scroll-terms-list {
   max-height: calc(~"100vh - 100px");
   overflow: auto;
+}
+
+.list-group-item {
+  background-color: @gray;
+  .active {
+    background-color: @grayLight;
+  }
 }
 
 .about {
