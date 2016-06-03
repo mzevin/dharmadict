@@ -14,6 +14,7 @@
 
 			<div class="row search-row" > <!-- ng-include="'views/_search.html'" -->
 				<div class="col-md-12">
+					<div class="row">
 					<form>
 			      <div class="form-group">
 			        <div class="col-md-6">
@@ -30,6 +31,7 @@
 			        </div>
 			      </div>
 			    </form>
+					</div>
 				</div>
 			</div>
 
@@ -40,13 +42,13 @@
 			</div>
 
 			<div class="row search-results-row" ng-hide="showAboutInfo">
-				<div class="col-md-2">
+				<div class="col-md-3">
 					<div class="list-group scroll-terms-list">
 					  <a href="" class="list-group-item" ng-repeat="t in terms" ng-click="showTerm($index)">{{t.wylie}}</a>
 					</div>
 				</div>
 
-				<div class="col-md-10">
+				<div class="col-md-9">
 					<div class="term" ng-show="currentTerm != null">
 						<!--div ng-include="'views/_term.html'"></div-->
 						<div class="term-header">
