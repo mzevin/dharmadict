@@ -18,7 +18,8 @@
 			      <div class="form-group">
 			        <div class="col-md-6">
 			          <label class="sr-only" for="inputTerm">Термин:</label>
-			          <input type="search" class="form-control col-md-7" id="inputTerm" placeholder="Термин" ng-keyup="$event.keyCode == 13 ? search() : null">
+			          <input type="search" ng-model="searchPattern" class="form-control col-md-7" id="inputTerm" placeholder="Термин"
+												ng-keyup="$event.keyCode == 13 ? search() : null">
 			        </div>
 			        <div class="col-md-1">
 			          <form>
@@ -63,7 +64,7 @@
 										<!--span class="glyphicon glyphicon-comment" aria-hidden="true" ng-click="toggleComment(translatorIndex,$index)" ng-show="m.comment"></span-->
 										<!--button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-comment" ng-model="singleModel" uib-btn-checkbox></button-->
 										<span ng-show="m.comment">
-											<a ng-click="toggleComment(translatorIndex,$index)">&gt;&gt;&gt;</a>
+											<a class="commentLink" ng-click="toggleComment(translatorIndex,$index)">&gt;&gt;&gt;</a>
 										</span>
 										<span id="{{'comment-'+translatorIndex+'-'+$index}}" class="translation-comment hidden">{{m.comment}}</span>
 						      </li>
