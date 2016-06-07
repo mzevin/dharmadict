@@ -63,18 +63,19 @@ module.exports = (grunt) ->
 		grunt.log.writeln "File \"" + "./.temp/index.html" + "\" created."
 
 
-	grunt.registerTask "upload", "Uploads CSV file into Elasticsearch", (inputFile, author, elasticHost) ->
+	grunt.registerTask "upload", "Uploads CSV file into Elasticsearch", (inputFile, authorId, elasticHost) ->
 		console.log "inputFile: #{inputFile}"
-		console.log "author: #{author}"
+		console.log "authorId: #{authorId}"
 
 		# when 'author' parmameter is missed, it means that we are loading basic terms description file (w/o translations field)
-		loadTermsDesc = author == null || author == undefined
-		if author == "HOP" then lang = "eng" else lang = "rus"
-		if author?
-			author = "М.Н. Кожевникова" if author == "MK"
-			author = "А. Кугявичус - А.А. Терентьев" if author == "KT"
-			author = "Б.И. Загуменнов" if author == "BZ"
-			author = "J. Hopkins" if author == "JH"
+		loadTermsDesc = authorId == null || authorId == undefined
+		if authorId == "HOP" then lang = "eng" else lang = "rus"
+		if authorId?
+			author = "М.Н. Кожевникова" if author == "KOG"
+			author = "А. Кугявичус - А.А. Терентьев" if author == "AKT"
+			author = "Б.И. Загуменнов" if author == "ZAG"
+			author = "А.М. Донец" if author == "DON"
+			author = "J. Hopkins" if author == "HOP"
 
 		elasticHost = "localhost" unless elasticHost?
 		indexName = "dharmadict"
@@ -128,22 +129,27 @@ module.exports = (grunt) ->
 				continue unless record.wylie?
 				if loadTermsDesc
 					addTerm
-						wylie: record.wylie
+						wylie: record.wylie.toLowerCase()
 						sanskrit_rus: record.sanskrit_rus
+						sanskrit_rus_lower: record.sanskrit_rus.toLowerCase()
 						sanskrit_eng: record.sanskrit_eng
-						wikipedia: record.wikipedia
+						sanskrit_eng_lower: record.sanskrit_eng.toLowerCase()
 				else if !!record.translations
 					comments = if record.comment? then record.comment.split('+') else []
 					mngs = []
 					record.translations.split('+').map (val, i) =>
+						versions = (ver.trim() for ver in val.split(';'))
 						mngs.push {
-							versions: {rus: ver.trim()} for ver in val.split(',') # TODO: language
+							versions: versions
+							versions_lower: (ver.toLowerCase() for ver in versions)
 							comment: if comments.length > i then comments[i].trim() else null
 						}
 					addTerm
-						wylie: record.wylie
+						wylie: record.wylie.toLowerCase()
 						translation:
+							translatorId: authorId
 							translator: author
+							language: lang
 							meanings: mngs
 
 		parser.on 'finish', ->

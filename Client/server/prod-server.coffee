@@ -22,9 +22,9 @@ app.configure () ->
 						operator: "and"
 						fields: [
 							"wylie"
-							"sanskrit_rus"
-							"sanskrit_eng"
-							"translations.meanings.versions.rus"
+							"sanskrit_rus_lower"
+							"sanskrit_eng_lower"
+							"translations.meanings.versions_lower"
 						]
 		.then (result) ->
 			res.json (hit._source for hit in result.hits.hits)

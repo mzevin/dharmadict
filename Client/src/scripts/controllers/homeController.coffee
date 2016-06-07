@@ -3,6 +3,7 @@ angular.module('app')
 		'$scope', '$log', 'termsService'
 		($scope, console, termsService) ->
 
+			$scope.showEnglish = true
 			$scope.showAboutInfo = false
 			$scope.searchPattern = ""
 			$scope.terms = []
@@ -26,4 +27,16 @@ angular.module('app')
 				idSelector = "#comment-#{tIdx}-#{mIdx}"
 				if $(idSelector).hasClass("hidden") then $(idSelector).removeClass("hidden") else $(idSelector).addClass("hidden")
 				return
+
+			$scope.getTranslator = (id) ->
+				switch id
+					when "MK" then "М.Н. Кожевникова"
+					when "AKT" then "А. Кугявичус - А.А. Терентьев"
+					when "ZAG" then "Б.И. Загуменнов"
+					when "DON" then "А.М. Донец"
+					when "HOP" then "J. Hopkins"
+					else "UNKNOWN"
+
+			$scope.byLang = (translation) ->
+				translation.language == "rus" || $scope.showEnglish
 	])

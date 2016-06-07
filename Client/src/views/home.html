@@ -61,13 +61,13 @@
 							<div class="sanskrit" ng-show="currentTerm.sanskrit_rus.length > 0">Санскрит: {{currentTerm.sanskrit_rus}}</div>
 						</div>
 						<ul class="translations-list">
-						  <li class="translation" ng-repeat="t in currentTerm.translations" ng-init="translatorIndex = $index">
+						  <li class="translation" ng-repeat="t in currentTerm.translations | filter:byLang" ng-init="translatorIndex = $index">
 						    <div class="wrap-translator-ref">
-						      <a href="" class="translator-ref">{{t.translator}}</a>
+						      <a href="" class="translator-ref">{{getTranslator(t.translatorId)}}</a>
 						    </div>
 						    <ol class="meanings" ng-class="{'single-item': t.meanings.length==1}">
 						      <li class="meaning" ng-repeat="m in t.meanings">
-						        <span ng-repeat="v in m.versions">{{v.rus}}{{$last ? '' : ($index==v.length-2) ? ' and ' : '; '}}</span>
+						        <span ng-repeat="v in m.versions">{{v}}{{$last ? '' : ($index==v.length-2) ? ' and ' : '; '}}</span>
 										<!--span class="glyphicon glyphicon-comment" aria-hidden="true" ng-click="toggleComment(translatorIndex,$index)" ng-show="m.comment"></span-->
 										<!--button type="button" class="btn btn-primary btn-xs glyphicon glyphicon-comment" ng-model="singleModel" uib-btn-checkbox></button-->
 										<span ng-show="m.comment">
