@@ -20,7 +20,7 @@ angular.module('app')
 			$scope.showTerm = (idx) ->
 				$scope.currentTerm =  $scope.terms[idx]
 
-			$scope.toggleAbout = () ->
+			$scope.toggleAboutInfo = () ->
 				$scope.showAboutInfo = not $scope.showAboutInfo
 
 			$scope.toggleComment = (tIdx, mIdx) ->
