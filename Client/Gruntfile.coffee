@@ -110,10 +110,11 @@ module.exports = (grunt) ->
 						doc_as_upsert : true
 				else
 					bulkObject.body.push
-						script: "if (ctx._source.containsKey('translations')) {ctx._source.translations += translation;} else {ctx._source.translations = [translation]}"
+						script: "if (ctx._source.containsKey('translations')) {def idx = ctx._source.translations.findIndexOf {t -> t.translatorId == authorId}; if (idx == -1) ctx._source.translations += translation; else ctx._source.translations[idx] = translation;} else {ctx._source.translations = [translation]}"
 						upsert: term
 						params:
 							translation: term.translation
+							authorId: term.translation.translatorId
 
 		updateDB = ->
 			client.bulk(bulkObject, (err, response) ->
