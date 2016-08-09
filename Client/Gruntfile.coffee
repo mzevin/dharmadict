@@ -69,13 +69,14 @@ module.exports = (grunt) ->
 
 		# when 'author' parmameter is missed, it means that we are loading basic terms description file (w/o translations field)
 		loadTermsDesc = authorId == null || authorId == undefined
-		if authorId == "HOP" then lang = "eng" else lang = "rus"
+		if authorId == "HOP" || authorId == "BRZ" then lang = "eng" else lang = "rus"
 		if authorId?
 			author = "М.Н. Кожевникова" if author == "KOG"
 			author = "А. Кугявичус - А.А. Терентьев" if author == "AKT"
 			author = "Б.И. Загуменнов" if author == "ZAG"
 			author = "А.М. Донец" if author == "DON"
 			author = "J. Hopkins" if author == "HOP"
+			author = "A. Berzin" if author == "BRZ"
 
 		elasticHost = "localhost" unless elasticHost?
 		indexName = "dharmadict"

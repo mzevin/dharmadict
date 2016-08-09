@@ -35,6 +35,7 @@ angular.module('app')
 					when "ZAG" then "Б.И. Загуменнов"
 					when "DON" then "А.М. Донец"
 					when "HOP" then "J. Hopkins"
+					when "BRZ" then "A. Berzin"
 					else "UNKNOWN"
 
 			$scope.byLang = (translation) ->
